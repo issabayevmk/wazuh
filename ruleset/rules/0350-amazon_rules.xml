@@ -99,9 +99,9 @@
   </rule>
 
   <rule id="80256" level="10">
-    <field name="aws.eventName">ConsoleLogin</field>
+    <if_sid>80202</if_sid>
     <field name="aws.userIdentity.type">Root</field>
-    <field name="aws.responsElements.ConsoleLogin">Success</field>
+    <match>Success</match>
     <options>no_full_log</options>
     <description>AWS root login detected from $(aws.sourceIPAddress) in account $(aws.recipientAccountId)</description>
   </rule>
