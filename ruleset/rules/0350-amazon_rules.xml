@@ -99,13 +99,29 @@
   </rule>
 
   <rule id="80256" level="10">
-    <if_sid>80202</if_sid>
+    <if_sid>80253</if_sid>
     <field name="aws.userIdentity.type">Root</field>
     <match>Success</match>
     <options>no_full_log</options>
-    <description>AWS root login detected from $(aws.sourceIPAddress) in account $(aws.recipientAccountId)</description>
+    <description>AWS root login detected from $(aws.sourceIPAddress) in account $(aws.recipientAccountId).</description>
   </rule>
 
+  <!-- Other AWS Services -->
+  <rule id="80257" level="10">
+    <if_sid>80202</if_sid>
+    <field name="aws.eventName">DeleteTrail|StopLogging</field>
+    <options>no_full_log</options>
+    <description>AWS CloudTrail was stopped/deleted in account $(aws.recipientAccountId).</description>
+  </rule>
+
+  <rule id="80258" level="10">
+    <if_sid>80202</if_sid>
+    <field name="aws.eventName">UpdateProjectVisibility</field>
+    <match>PUBLIC_READ</match>
+    <options>no_full_log</options>
+    <description>AWS Config was stopped/deleted in account $(aws.recipientAccountId)</description>
+  </rule>
+  
   <!-- Guard Duty -->
   <!-- Documentation: https://docs.aws.amazon.com/guardduty/latest/ug/guardduty_finding-types.html -->
   <rule id="80300" level="0">
